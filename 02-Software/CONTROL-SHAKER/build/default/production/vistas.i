@@ -5736,11 +5736,13 @@ void vista_modo_setpoint_time(void);
 
 void vista_test_pwm(void);
 
+void vista_test_firing_angle(void);
+
 void vista_sintonizar_pid(void);
 # 3 "vistas.c" 2
 
 # 1 "./LIBRERIA_LCD.h" 1
-# 43 "./LIBRERIA_LCD.h"
+# 46 "./LIBRERIA_LCD.h"
 void LCD_Init(void);
 void enviar_dato(unsigned char cmd);
 void LCD_Chr_Cp(char letra);
@@ -5756,13 +5758,46 @@ void LCD_Out(unsigned char row, unsigned char column, char *text);
 
 
 
+
+
+
 char aux[20] = " ";
 char pwm_flag = 0;
+char operationModeFlag = 0;
+char vista_firing_angle_flag = 0;
 char vista = 0;
 
 
+float kp = 0.0;
+float ki = 0.0;
+float kd = 0.0;
 
-int rpm = 0;
+float error_acumulado = 0.0;
+float error_anterior = 0.0;
+
+float up = 0;
+float ui = 0.0;
+float ui_ = 0.0;
+
+float ud = 0;
+float ut = 0;
+
+
+
+float cv;
+float cv1;
+float error;
+float error1;
+float error2;
+
+
+char inc_pressed = 0;
+char dec_pressed = 0;
+
+
+
+
+int PV_RPM;
 int setpoint_rpm = 0;
 
 
@@ -5775,11 +5810,9 @@ int setpoint_segundos = 0;
 char fin_ciclo = 0;
 
 
-int tiempo_total = 0;
-char pulsos_por_revolucion = 2;
+int uni = 0, dec = 0, cen = 0, mil = 0;
 
-
-char duty = 0;
+int duty = 0;
 # 5 "vistas.c" 2
 
 # 1 "./PWM_LIB.h" 1
@@ -5795,9 +5828,45 @@ int reg10bits;
 
 void PWM_Init(int f_trabajo , char pre_config);
 void PWM_Duty(char ciclo_t);
-void PWM_Start();
-void PWM_Stop();
+void PWM_Start(void);
+void PWM_Stop(void);
 # 6 "vistas.c" 2
+
+# 1 "./funciones.h" 1
+
+
+
+
+void contador_on(void);
+void contador_off(void);
+void tmr0_init(void);
+void tmr0_on(void);
+void tmr0_off(void);
+
+void operationModeOn(void);
+void operationModeOff(void);
+
+
+void guardar_rpm(int dato);
+
+int leer_rpm(void);
+
+void calcularRPM(void);
+
+
+
+void ccp1_config(void);
+void ccp1_on(void);
+void ccp1_off(void);
+
+
+void tmr2_init(void);
+void tmr2_on(void);
+void tmr2_off(void);
+void set_firing_angle(void);
+
+int pid(int velocidad);
+# 7 "vistas.c" 2
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\stdio.h" 1 3
 # 24 "C:\\Program Files\\Microchip\\xc8\\v2.40\\pic\\include\\c99\\stdio.h" 3
@@ -5943,13 +6012,15 @@ char *ctermid(char *);
 
 
 char *tempnam(const char *, const char *);
-# 7 "vistas.c" 2
+# 8 "vistas.c" 2
 
+
+unsigned char botonPresionado = 0;
 
 void vista_principal(void) {
     LCD_Cmd(1);
     while (vista == 0) {
-        sprintf(aux, "  RPM  -> %04d", setpoint_rpm);
+        sprintf(aux, "  RP   -> %04d", setpoint_rpm);
         LCD_Out(2, 1, aux);
         sprintf(aux, "  Time -> %02d:%02d:%02d", setpoint_horas, setpoint_minutos, setpoint_segundos);
         LCD_Out(3, 1, aux);
@@ -5962,7 +6033,16 @@ void vista_modo_operacion(void) {
     segundos = setpoint_segundos;
     LCD_Cmd(1);
     _delay((unsigned long)((50)*(4000000L/4000.0)));
-    while (vista == 1) {
+
+    if (operationModeFlag) {
+        operationModeOn();
+    } else {
+        LCD_Cmd(1);
+        _delay((unsigned long)((50)*(4000000L/4000.0)));
+        LCD_Out(2, 1, "RPM or Time is zero");
+        _delay((unsigned long)((1000)*(4000000L/4000.0)));
+    }
+    while (vista == 1 && operationModeFlag) {
         if (fin_ciclo == 1) {
             LCD_Cmd(1);
             _delay((unsigned long)((50)*(4000000L/4000.0)));
@@ -5973,10 +6053,14 @@ void vista_modo_operacion(void) {
                 LATCbits.LATC0 = 0;
                 _delay((unsigned long)((500)*(4000000L/4000.0)));
             }
+            PWM_Stop();
+            tmr0_off();
+            fin_ciclo = 0;
+            operationModeFlag = 0;
             vista = 0;
             break;
         }
-        sprintf(aux, "RPM_PV  -> %04d", rpm);
+        sprintf(aux, "RPM_PV  -> %04d", PV_RPM);
         LCD_Out(1, 1, aux);
         sprintf(aux, "RPM_SV  -> %04d", setpoint_rpm);
         LCD_Out(2, 1, aux);
@@ -5984,31 +6068,89 @@ void vista_modo_operacion(void) {
         LCD_Out(3, 1, aux);
         sprintf(aux, "Time_SV -> %02d:%02d:%02d", setpoint_horas, setpoint_minutos, setpoint_segundos);
         LCD_Out(4, 1, aux);
-
-
+        duty = pid(PV_RPM);
+        PWM_Duty(duty);
     }
 }
 
 void vista_modo_setpoint_rpm(void) {
+
     LCD_Cmd(1);
+    char posicion_cursor = 18;
+
+    uni = setpoint_rpm % 10;
+    dec = (setpoint_rpm / 10) % 10;
+    cen = (setpoint_rpm / 100) % 10;
+    mil = (setpoint_rpm / 1000) % 10;
+
     while (vista == 2) {
-        sprintf(aux, "   Set RPM -> %04d", setpoint_rpm);
+
+        sprintf(aux, "   Set RPM -> %d%d%d%d", mil, cen, dec, uni);
         LCD_Out(2, 1, aux);
-        LCD_XY(2, 18);
+        LCD_XY(2, posicion_cursor);
         LCD_Cmd(14);
         _delay((unsigned long)((150)*(4000000L/4000.0)));
         LCD_Cmd(12);
         while (!PORTBbits.RB4) {
-            sprintf(aux, "   Set RPM -> %04d", setpoint_rpm);
+            sprintf(aux, "   Set RPM -> %d%d%d%d", mil, cen, dec, uni);
             LCD_Out(2, 1, aux);
-            setpoint_rpm += 10;
+            if (posicion_cursor == 18) {
+                uni++;
+                if (uni > 9) {
+                    uni = 0;
+                }
+            } else if (posicion_cursor == 17) {
+                dec++;
+                if (dec > 9) {
+                    dec = 0;
+                }
+            } else if (posicion_cursor == 16) {
+                cen++;
+                if (cen > 9) {
+                    cen = 0;
+                }
+            } else if (posicion_cursor == 15) {
+                mil++;
+                if (mil > 9) {
+                    mil = 0;
+                }
+            }
             _delay((unsigned long)((50)*(4000000L/4000.0)));
         }
         while (!PORTBbits.RB5) {
-            sprintf(aux, "   Set RPM -> %04d", setpoint_rpm);
+            sprintf(aux, "   Set RPM -> %d%d%d%d", mil, cen, dec, uni);
             LCD_Out(2, 1, aux);
-            setpoint_rpm -= 10;
+            if (posicion_cursor == 18) {
+                uni--;
+                if (uni < 0) {
+                    uni = 9;
+                }
+            } else if (posicion_cursor == 17) {
+                dec--;
+                if (dec < 0) {
+                    dec = 9;
+                }
+            } else if (posicion_cursor == 16) {
+                cen--;
+                if (cen < 0) {
+                    cen = 9;
+                }
+            } else if (posicion_cursor == 15) {
+                mil--;
+                if (mil < 0) {
+                    mil = 9;
+                }
+            }
             _delay((unsigned long)((50)*(4000000L/4000.0)));
+        }
+        if (!PORTBbits.RB3 && posicion_cursor == 18) {
+            posicion_cursor = 17;
+        } else if (!PORTBbits.RB3 && posicion_cursor == 17) {
+            posicion_cursor = 16;
+        } else if (!PORTBbits.RB3 && posicion_cursor == 16) {
+            posicion_cursor = 15;
+        } else if (!PORTBbits.RB3 && posicion_cursor == 15) {
+            posicion_cursor = 18;
         }
     }
 }
@@ -6067,9 +6209,11 @@ void vista_modo_setpoint_time(void) {
 void vista_test_pwm(void) {
     LCD_Cmd(1);
     _delay((unsigned long)((50)*(4000000L/4000.0)));
-    pwm_flag = 1;
+    operationModeOn();
     while (vista == 4) {
-        LCD_Out(2, 1, "      Test PWM");
+        LCD_Out(1, 1, "      Test PWM");
+        sprintf(aux, "  RPM_PV  -> %04d", PV_RPM);
+        LCD_Out(2, 1, aux);
         sprintf(aux, "  Duty Cycle -> %03d", duty);
         LCD_Out(3, 1, aux);
         LCD_XY(3, 19);
@@ -6094,9 +6238,69 @@ void vista_test_pwm(void) {
             }
             _delay((unsigned long)((50)*(4000000L/4000.0)));
         }
+        PWM_Duty(duty);
     }
 }
 
 void vista_sintonizar_pid(void) {
+    LCD_Cmd(1);
+    char posicion_cursor = 20;
+    while (vista == 5) {
+        sprintf(aux, "kp=%03d ki=%03d kd=%03d", (int)kp, (int)ki, (int)kd);
+        LCD_Out(2, 1, aux);
+        LCD_XY(2, posicion_cursor);
+        LCD_Cmd(14);
+        _delay((unsigned long)((150)*(4000000L/4000.0)));
+        LCD_Cmd(12);
 
+        while (!PORTBbits.RB4) {
+            sprintf(aux, "kp=%03d ki=%03d kd=%03d", (int)kp, (int)ki, (int)kd);
+            LCD_Out(2, 1, aux);
+            if (posicion_cursor == 20) {
+                kd++;
+                if (kd > 100) {
+                    kd = 0;
+                }
+            } else if (posicion_cursor == 13) {
+                ki++;
+                if (ki > 100) {
+                    ki = 0;
+                }
+            } else if (posicion_cursor == 6) {
+                kp++;
+                if (kp > 100) {
+                    kp = 0;
+                }
+            }
+            _delay((unsigned long)((50)*(4000000L/4000.0)));
+        }
+        while (!PORTBbits.RB5) {
+            sprintf(aux, "kp=%03d ki=%03d kd=%03d", (int)kp, (int)ki, (int)kd);
+            LCD_Out(2, 1, aux);
+            if (posicion_cursor == 20) {
+                kd--;
+                if (kd < 0) {
+                    kd = 100;
+                }
+            } else if (posicion_cursor == 13) {
+                ki--;
+                if (ki < 0) {
+                    ki = 100;
+                }
+            } else if (posicion_cursor == 6) {
+                kp--;
+                if (kp < 0) {
+                    kp = 100;
+                }
+            }
+            _delay((unsigned long)((50)*(4000000L/4000.0)));
+        }
+        if (!PORTBbits.RB3 && posicion_cursor == 20) {
+            posicion_cursor = 13;
+        } else if (!PORTBbits.RB3 && posicion_cursor == 13) {
+            posicion_cursor = 6;
+        } else if (!PORTBbits.RB3 && posicion_cursor == 6) {
+            posicion_cursor = 20;
+        }
+    }
 }

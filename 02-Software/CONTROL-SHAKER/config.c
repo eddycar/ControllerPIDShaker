@@ -15,7 +15,7 @@
 
 // CONFIG2L
 #pragma config PWRT = ON        // Power-up Timer Enable bit (PWRT enabled)
-#pragma config BOR = OFF        // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
+#pragma config BOR = ON       // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
 #pragma config BORV = 3         // Brown-out Reset Voltage bits (Minimum setting 2.05V)
 #pragma config VREGEN = OFF     // USB Voltage Regulator Enable bit (USB voltage regulator disabled)
 
@@ -65,7 +65,4 @@
 // CONFIG7H
 #pragma config EBTRB = OFF      // Boot Block Table Read Protection bit (Boot block (000000-0007FFh) is not protected from table reads executed in other blocks)
 
-// #pragma config statements should precede project file includes.
-// Use project enums instead of #define for ON and OFF.
 
-#include <xc.h>

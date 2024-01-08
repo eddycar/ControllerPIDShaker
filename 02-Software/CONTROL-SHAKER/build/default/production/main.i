@@ -5720,8 +5720,11 @@ unsigned char __t3rd16on(void);
 # 34 "C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\\pic\\include\\xc.h" 2 3
 # 2 "main.c" 2
 
+# 1 "./config.h" 1
+# 3 "main.c" 2
+
 # 1 "./LIBRERIA_LCD.h" 1
-# 43 "./LIBRERIA_LCD.h"
+# 46 "./LIBRERIA_LCD.h"
 void LCD_Init(void);
 void enviar_dato(unsigned char cmd);
 void LCD_Chr_Cp(char letra);
@@ -5730,7 +5733,7 @@ void LCD_XY(unsigned char row, unsigned char column);
 void LCD_Chr(unsigned char row, unsigned char column, char letra);
 void LCD_Out_Cp(char *text);
 void LCD_Out(unsigned char row, unsigned char column, char *text);
-# 3 "main.c" 2
+# 4 "main.c" 2
 
 # 1 "./PWM_LIB.h" 1
 
@@ -5745,15 +5748,15 @@ int reg10bits;
 
 void PWM_Init(int f_trabajo , char pre_config);
 void PWM_Duty(char ciclo_t);
-void PWM_Start();
-void PWM_Stop();
-# 4 "main.c" 2
-
-# 1 "./config.h" 1
+void PWM_Start(void);
+void PWM_Stop(void);
 # 5 "main.c" 2
 
 # 1 "./EEPROM_LIB.h" 1
-# 11 "./EEPROM_LIB.h"
+
+
+
+
 void EEPROM_Guardar(int dir, char data);
 
 unsigned char EEPROM_Lectura(int dir);
@@ -5764,13 +5767,46 @@ unsigned char EEPROM_Lectura(int dir);
 
 
 
+
+
+
 char aux[20] = " ";
 char pwm_flag = 0;
+char operationModeFlag = 0;
+char vista_firing_angle_flag = 0;
 char vista = 0;
 
 
+float kp = 0.0;
+float ki = 0.0;
+float kd = 0.0;
 
-int rpm = 0;
+float error_acumulado = 0.0;
+float error_anterior = 0.0;
+
+float up = 0;
+float ui = 0.0;
+float ui_ = 0.0;
+
+float ud = 0;
+float ut = 0;
+
+
+
+float cv;
+float cv1;
+float error;
+float error1;
+float error2;
+
+
+char inc_pressed = 0;
+char dec_pressed = 0;
+
+
+
+
+int PV_RPM;
 int setpoint_rpm = 0;
 
 
@@ -5783,28 +5819,45 @@ int setpoint_segundos = 0;
 char fin_ciclo = 0;
 
 
-int tiempo_total = 0;
-char pulsos_por_revolucion = 2;
+int uni = 0, dec = 0, cen = 0, mil = 0;
 
-
-char duty = 0;
+int duty = 0;
 # 7 "main.c" 2
 
 # 1 "./funciones.h" 1
-# 11 "./funciones.h"
-void tmr0_init(void);
 
-void pid(float velocidad);
+
+
+
+void contador_on(void);
+void contador_off(void);
+void tmr0_init(void);
+void tmr0_on(void);
+void tmr0_off(void);
+
+void operationModeOn(void);
+void operationModeOff(void);
+
 
 void guardar_rpm(int dato);
 
 int leer_rpm(void);
 
-void calcular_rpm();
+void calcularRPM(void);
 
 
-void ccp1_config();
-void ccp1_init();
+
+void ccp1_config(void);
+void ccp1_on(void);
+void ccp1_off(void);
+
+
+void tmr2_init(void);
+void tmr2_on(void);
+void tmr2_off(void);
+void set_firing_angle(void);
+
+int pid(int velocidad);
 # 8 "main.c" 2
 
 # 1 "./vistas.h" 1
@@ -5820,6 +5873,8 @@ void vista_modo_setpoint_rpm(void);
 void vista_modo_setpoint_time(void);
 
 void vista_test_pwm(void);
+
+void vista_test_firing_angle(void);
 
 void vista_sintonizar_pid(void);
 # 9 "main.c" 2
@@ -5970,105 +6025,54 @@ char *ctermid(char *);
 char *tempnam(const char *, const char *);
 # 10 "main.c" 2
 
+
 # 1 "./interrupts.h" 1
 
 
 
 
-void INTERRUPTS_CONFIG();
+void INTERRUPTS_CONFIG(void);
 
 void __attribute__((picinterrupt(("")))) INTERRUPTS();
-# 11 "main.c" 2
-
-
-int contador_cruce = 0;
-float salida;
-
-
-
-
-float kp = 80;
-float ki = 0;
-float kd = 0;
-
-float error_acumulado = 0;
-float error_anterior = 0.0;
-
-float up = 0;
-float ui = 0.0;
-float ui_ = 0.0;
-
-float ud = 0;
-float ut = 0;
-
-float set_point = 0;
-
-void pid(float pid_in);
+# 12 "main.c" 2
 
 
 void main(void) {
-    ADCON1 = 0x0F;
-    INTCON2bits.RBPU = 1;
 
     INTERRUPTS_CONFIG();
+    ADCON1 = 0x0F;
 
+
+    TRISB = 0xff;
     TRISCbits.RC0 = 0;
     LATCbits.LATC0 = 0;
-    TRISCbits.RC2 = 1;
 
 
-
-
-    ccp1_config();
-    ccp1_init();
-
-    LCD_Init();
-    LCD_Cmd(12);
-
-
-
-    setpoint_minutos = EEPROM_Lectura(3);
-    if (setpoint_minutos > 59) {
-        setpoint_minutos = 0;
-    }
-    setpoint_horas = EEPROM_Lectura(2);
-    if (setpoint_horas > 3) {
-        setpoint_horas = 0;
-    }
-
-    setpoint_rpm = leer_rpm();
-
-    horas = setpoint_horas;
-    minutos = setpoint_minutos;
-    segundos = setpoint_segundos;
-
+     PWM_Init(20000, 16);
+# 47 "main.c"
     while (1) {
+        if (vista == 0) {
+            operationModeFlag = 0;
+            operationModeOff();
+            vista_principal();
+        } else if (vista == 1) {
+
+        } else if (vista == 2) {
+
+        } else if (vista == 3) {
+
+
+
+        } else if (vista == 4) {
+
+        } else if (vista == 5) {
 
 
 
 
 
 
-        sprintf(aux, "RPM -> %04d", rpm);
-        LCD_Out(2, 1, aux);
-# 94 "main.c"
+        }
     }
     return;
-}
-
-void pid(float velocidad) {
-    const float max_x = 100;
-    const float min_x = 0;
-    const float t_muestreo = 1;
-
-
-    error_acumulado = set_point - velocidad;
-    up = kp*error_acumulado;
-    ui = ui_ + (ki * t_muestreo * error_acumulado);
-    ud = kd * (error_acumulado - error_anterior) / t_muestreo;
-    ut = up + ui + ud;
-    if (ut > max_x) ut = max_x;
-    if (ut < min_x) ut = min_x;
-    ui_ = ui;
-    error_anterior = error_acumulado;
 }

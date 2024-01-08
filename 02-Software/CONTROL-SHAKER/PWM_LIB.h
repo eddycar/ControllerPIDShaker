@@ -10,8 +10,7 @@ int reg10bits;
 
 void PWM_Init(int f_trabajo , char pre_config);
 void PWM_Duty(char ciclo_t);
-void PWM_Start();
-void PWM_Stop();
-
+void PWM_Start(void);
+void PWM_Stop(void);
 #endif	/* XC_HEADER_TEMPLATE_H */
 

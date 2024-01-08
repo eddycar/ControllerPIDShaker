@@ -18,6 +18,33 @@ Version 4.0 HI-TECH Software Intermediate Code
 "7229
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 7229: extern volatile T2CONbits_t T2CONbits __attribute__((address(0xFCA)));
 [v _T2CONbits `VS300 ~T0 @X0 0 e@4042 ]
+"2570
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2570:     struct {
+[s S111 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S111 . RC0 RC1 RC2 . RC4 RC5 RC6 RC7 ]
+"2580
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2580:     struct {
+[s S112 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S112 . T1OSO T1OSI CCP1 . TX RX ]
+"2588
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2588:     struct {
+[s S113 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S113 . T13CKI . P1A . CK DT ]
+"2596
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2596:     struct {
+[s S114 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S114 . . CCP2 PA1 ]
+"2601
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2601:     struct {
+[s S115 :1 `uc 1 :1 `uc 1 ]
+[n S115 . . PA2 ]
+"2569
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2569: typedef union {
+[u S110 `S111 1 `S112 1 `S113 1 `S114 1 `S115 1 ]
+[n S110 . . . . . . ]
+"2606
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 2606: extern volatile PORTCbits_t PORTCbits __attribute__((address(0xF82)));
+[v _PORTCbits `VS110 ~T0 @X0 0 e@3970 ]
 "3859
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 3859:     struct {
 [s S154 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -573,91 +600,295 @@ Version 4.0 HI-TECH Software Intermediate Code
 "9 ./PWM_LIB.h
 [; ;./PWM_LIB.h: 9: int reg10bits;
 [v _reg10bits `i ~T0 @X0 1 e ]
-"5 PWM_LIB.c
-[; ;PWM_LIB.c: 5: void PWM_Start(){
+"8 ./globals.h
+[; ;./globals.h: 8: char aux[20] = " ";
+[v _aux `uc ~T0 @X0 -> 20 `i e ]
+[i _aux
+:U ..
+-> 32 `c
+-> 0 `c
+..
+]
+"9
+[; ;./globals.h: 9: char pwm_flag = 0;
+[v _pwm_flag `uc ~T0 @X0 1 e ]
+[i _pwm_flag
+-> -> 0 `i `uc
+]
+"10
+[; ;./globals.h: 10: char operationModeFlag = 0;
+[v _operationModeFlag `uc ~T0 @X0 1 e ]
+[i _operationModeFlag
+-> -> 0 `i `uc
+]
+"11
+[; ;./globals.h: 11: char vista_firing_angle_flag = 0;
+[v _vista_firing_angle_flag `uc ~T0 @X0 1 e ]
+[i _vista_firing_angle_flag
+-> -> 0 `i `uc
+]
+"12
+[; ;./globals.h: 12: char vista = 0;
+[v _vista `uc ~T0 @X0 1 e ]
+[i _vista
+-> -> 0 `i `uc
+]
+"15
+[; ;./globals.h: 15: float kp = 0.0;
+[v _kp `f ~T0 @X0 1 e ]
+[i _kp
+-> .0.0 `f
+]
+"16
+[; ;./globals.h: 16: float ki = 0.0;
+[v _ki `f ~T0 @X0 1 e ]
+[i _ki
+-> .0.0 `f
+]
+"17
+[; ;./globals.h: 17: float kd = 0.0;
+[v _kd `f ~T0 @X0 1 e ]
+[i _kd
+-> .0.0 `f
+]
+"19
+[; ;./globals.h: 19: float error_acumulado = 0.0;
+[v _error_acumulado `f ~T0 @X0 1 e ]
+[i _error_acumulado
+-> .0.0 `f
+]
+"20
+[; ;./globals.h: 20: float error_anterior = 0.0;
+[v _error_anterior `f ~T0 @X0 1 e ]
+[i _error_anterior
+-> .0.0 `f
+]
+"22
+[; ;./globals.h: 22: float up = 0;
+[v _up `f ~T0 @X0 1 e ]
+[i _up
+-> -> 0 `i `f
+]
+"23
+[; ;./globals.h: 23: float ui = 0.0;
+[v _ui `f ~T0 @X0 1 e ]
+[i _ui
+-> .0.0 `f
+]
+"24
+[; ;./globals.h: 24: float ui_ = 0.0;
+[v _ui_ `f ~T0 @X0 1 e ]
+[i _ui_
+-> .0.0 `f
+]
+"26
+[; ;./globals.h: 26: float ud = 0;
+[v _ud `f ~T0 @X0 1 e ]
+[i _ud
+-> -> 0 `i `f
+]
+"27
+[; ;./globals.h: 27: float ut = 0;
+[v _ut `f ~T0 @X0 1 e ]
+[i _ut
+-> -> 0 `i `f
+]
+"31
+[; ;./globals.h: 31: float cv;
+[v _cv `f ~T0 @X0 1 e ]
+"32
+[; ;./globals.h: 32: float cv1;
+[v _cv1 `f ~T0 @X0 1 e ]
+"33
+[; ;./globals.h: 33: float error;
+[v _error `f ~T0 @X0 1 e ]
+"34
+[; ;./globals.h: 34: float error1;
+[v _error1 `f ~T0 @X0 1 e ]
+"35
+[; ;./globals.h: 35: float error2;
+[v _error2 `f ~T0 @X0 1 e ]
+"38
+[; ;./globals.h: 38: char inc_pressed = 0;
+[v _inc_pressed `uc ~T0 @X0 1 e ]
+[i _inc_pressed
+-> -> 0 `i `uc
+]
+"39
+[; ;./globals.h: 39: char dec_pressed = 0;
+[v _dec_pressed `uc ~T0 @X0 1 e ]
+[i _dec_pressed
+-> -> 0 `i `uc
+]
+"44
+[; ;./globals.h: 44: int PV_RPM;
+[v _PV_RPM `i ~T0 @X0 1 e ]
+"45
+[; ;./globals.h: 45: int setpoint_rpm = 0;
+[v _setpoint_rpm `i ~T0 @X0 1 e ]
+[i _setpoint_rpm
+-> 0 `i
+]
+"48
+[; ;./globals.h: 48: int horas = 0;
+[v _horas `i ~T0 @X0 1 e ]
+[i _horas
+-> 0 `i
+]
+"49
+[; ;./globals.h: 49: int setpoint_horas = 0;
+[v _setpoint_horas `i ~T0 @X0 1 e ]
+[i _setpoint_horas
+-> 0 `i
+]
+"50
+[; ;./globals.h: 50: int minutos = 0;
+[v _minutos `i ~T0 @X0 1 e ]
+[i _minutos
+-> 0 `i
+]
+"51
+[; ;./globals.h: 51: int setpoint_minutos = 0;
+[v _setpoint_minutos `i ~T0 @X0 1 e ]
+[i _setpoint_minutos
+-> 0 `i
+]
+"52
+[; ;./globals.h: 52: int segundos = 0;
+[v _segundos `i ~T0 @X0 1 e ]
+[i _segundos
+-> 0 `i
+]
+"53
+[; ;./globals.h: 53: int setpoint_segundos = 0;
+[v _setpoint_segundos `i ~T0 @X0 1 e ]
+[i _setpoint_segundos
+-> 0 `i
+]
+"54
+[; ;./globals.h: 54: char fin_ciclo = 0;
+[v _fin_ciclo `uc ~T0 @X0 1 e ]
+[i _fin_ciclo
+-> -> 0 `i `uc
+]
+"57
+[; ;./globals.h: 57: int uni = 0, dec = 0, cen = 0, mil = 0;
+[v _uni `i ~T0 @X0 1 e ]
+[i _uni
+-> 0 `i
+]
+[v _dec `i ~T0 @X0 1 e ]
+[i _dec
+-> 0 `i
+]
+[v _cen `i ~T0 @X0 1 e ]
+[i _cen
+-> 0 `i
+]
+[v _mil `i ~T0 @X0 1 e ]
+[i _mil
+-> 0 `i
+]
+"59
+[; ;./globals.h: 59: int duty = 0;
+[v _duty `i ~T0 @X0 1 e ]
+[i _duty
+-> 0 `i
+]
+"6 PWM_LIB.c
+[; ;PWM_LIB.c: 6: void PWM_Start() {
 [v _PWM_Start `(v ~T0 @X0 1 ef ]
 {
 [e :U _PWM_Start ]
 [f ]
-"6
-[; ;PWM_LIB.c: 6:     T2CONbits.TMR2ON =1;
-[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
 "7
-[; ;PWM_LIB.c: 7: }
+[; ;PWM_LIB.c: 7:     T2CONbits.TMR2ON = 1;
+[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
+"8
+[; ;PWM_LIB.c: 8: }
 [e :UE 367 ]
 }
-"8
-[; ;PWM_LIB.c: 8: void PWM_Stop(){
+"10
+[; ;PWM_LIB.c: 10: void PWM_Stop() {
 [v _PWM_Stop `(v ~T0 @X0 1 ef ]
 {
 [e :U _PWM_Stop ]
 [f ]
-"9
-[; ;PWM_LIB.c: 9:     T2CONbits.TMR2ON =0;
+"22
+[; ;PWM_LIB.c: 22:     PORTCbits.RC2 = 0;
+[e = . . _PORTCbits 0 2 -> -> 0 `i `uc ]
+"23
+[; ;PWM_LIB.c: 23:     T2CONbits.TMR2ON = 0;
 [e = . . _T2CONbits 0 1 -> -> 0 `i `uc ]
-"10
-[; ;PWM_LIB.c: 10: }
+"24
+[; ;PWM_LIB.c: 24: }
 [e :UE 368 ]
 }
-"12
-[; ;PWM_LIB.c: 12: void PWM_Init(int f_trabajo, char pre_config ){
+"26
+[; ;PWM_LIB.c: 26: void PWM_Init(int f_trabajo, char pre_config) {
 [v _PWM_Init `(v ~T0 @X0 1 ef2`i`uc ]
 {
 [e :U _PWM_Init ]
 [v _f_trabajo `i ~T0 @X0 1 r1 ]
 [v _pre_config `uc ~T0 @X0 1 r2 ]
 [f ]
-"13
-[; ;PWM_LIB.c: 13:     TRISCbits.TRISC2=0;
+"27
+[; ;PWM_LIB.c: 27:     TRISCbits.TRISC2 = 0;
 [e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
-"14
-[; ;PWM_LIB.c: 14:     float Tpwm = 1.0/f_trabajo;
+"28
+[; ;PWM_LIB.c: 28:     float Tpwm = 1.0 / f_trabajo;
 [v _Tpwm `f ~T0 @X0 1 a ]
 [e = _Tpwm -> / .1.0 -> _f_trabajo `d `f ]
-"15
-[; ;PWM_LIB.c: 15:     float Tosc = 1.0/4000000L;
+"29
+[; ;PWM_LIB.c: 29:     float Tosc = 1.0 / 4000000L;
 [v _Tosc `f ~T0 @X0 1 a ]
 [e = _Tosc -> / .1.0 -> -> 4000000 `l `d `f ]
-"17
-[; ;PWM_LIB.c: 17:     char press=pre_config;
+"31
+[; ;PWM_LIB.c: 31:     char press = pre_config;
 [v _press `uc ~T0 @X0 1 a ]
 [e = _press _pre_config ]
-"19
-[; ;PWM_LIB.c: 19:     PR2 = (Tpwm/(Tosc*4*press))-1;
+"33
+[; ;PWM_LIB.c: 33:     PR2 = (Tpwm / (Tosc * 4 * press)) - 1;
 [e = _PR2 -> - / _Tpwm * * _Tosc -> -> 4 `i `f -> -> _press `i `f -> -> 1 `i `f `uc ]
-"21
-[; ;PWM_LIB.c: 21:     reg10bits=Tpwm/(Tosc*press);
+"35
+[; ;PWM_LIB.c: 35:     reg10bits = Tpwm / (Tosc * press);
 [e = _reg10bits -> / _Tpwm * _Tosc -> -> _press `i `f `i ]
-"23
-[; ;PWM_LIB.c: 23:     CCPR1L = (reg10bits&0b1111111100)>>2;
+"37
+[; ;PWM_LIB.c: 37:     CCPR1L = (reg10bits & 0b1111111100) >> 2;
 [e = _CCPR1L -> >> & _reg10bits -> 1020 `i -> 2 `i `uc ]
-"24
-[; ;PWM_LIB.c: 24:     CCP1CONbits.DC1B = reg10bits&0b0000000011;
+"38
+[; ;PWM_LIB.c: 38:     CCP1CONbits.DC1B = reg10bits & 0b0000000011;
 [e = . . _CCP1CONbits 0 1 -> & _reg10bits -> 3 `i `uc ]
-"26
-[; ;PWM_LIB.c: 26:     T2CON = 0x00;
+"40
+[; ;PWM_LIB.c: 40:     T2CON = 0x00;
 [e = _T2CON -> -> 0 `i `uc ]
-"28
-[; ;PWM_LIB.c: 28:     switch(press){
+"42
+[; ;PWM_LIB.c: 42:     switch (press) {
 [e $U 371  ]
 {
-"29
-[; ;PWM_LIB.c: 29:         case 1: T2CONbits.T2CKPS = 0b00; break;
+"43
+[; ;PWM_LIB.c: 43:         case 1: T2CONbits.T2CKPS = 0b00;
 [e :U 372 ]
 [e = . . _T2CONbits 0 0 -> -> 0 `i `uc ]
+"44
+[; ;PWM_LIB.c: 44:             break;
 [e $U 370  ]
-"30
-[; ;PWM_LIB.c: 30:         case 4: T2CONbits.T2CKPS = 0b01; break;
+"45
+[; ;PWM_LIB.c: 45:         case 4: T2CONbits.T2CKPS = 0b01;
 [e :U 373 ]
 [e = . . _T2CONbits 0 0 -> -> 1 `i `uc ]
+"46
+[; ;PWM_LIB.c: 46:             break;
 [e $U 370  ]
-"31
-[; ;PWM_LIB.c: 31:         case 16: T2CONbits.T2CKPS = 0b10; break;
+"47
+[; ;PWM_LIB.c: 47:         case 16: T2CONbits.T2CKPS = 0b10;
 [e :U 374 ]
 [e = . . _T2CONbits 0 0 -> -> 2 `i `uc ]
+"48
+[; ;PWM_LIB.c: 48:             break;
 [e $U 370  ]
-"32
-[; ;PWM_LIB.c: 32:     }
+"49
+[; ;PWM_LIB.c: 49:     }
 }
 [e $U 370  ]
 [e :U 371 ]
@@ -666,40 +897,40 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 16 `i 374
  370 ]
 [e :U 370 ]
-"34
-[; ;PWM_LIB.c: 34:     TMR2=0;
+"51
+[; ;PWM_LIB.c: 51:     TMR2 = 0;
 [e = _TMR2 -> -> 0 `i `uc ]
-"35
-[; ;PWM_LIB.c: 35:     CCP1CONbits.CCP1M = 0b1100;
+"52
+[; ;PWM_LIB.c: 52:     CCP1CONbits.CCP1M = 0b1100;
 [e = . . _CCP1CONbits 0 0 -> -> 12 `i `uc ]
-"38
-[; ;PWM_LIB.c: 38:     return;
+"55
+[; ;PWM_LIB.c: 55:     return;
 [e $UE 369  ]
-"39
-[; ;PWM_LIB.c: 39: }
+"56
+[; ;PWM_LIB.c: 56: }
 [e :UE 369 ]
 }
-"41
-[; ;PWM_LIB.c: 41: void PWM_Duty(char ciclo_t){
+"58
+[; ;PWM_LIB.c: 58: void PWM_Duty(char ciclo_t) {
 [v _PWM_Duty `(v ~T0 @X0 1 ef1`uc ]
 {
 [e :U _PWM_Duty ]
 [v _ciclo_t `uc ~T0 @X0 1 r1 ]
 [f ]
-"42
-[; ;PWM_LIB.c: 42:     int nuevoclico = reg10bits*(ciclo_t)/100.0;
+"59
+[; ;PWM_LIB.c: 59:     int nuevoclico = reg10bits * (ciclo_t) / 100.0;
 [v _nuevoclico `i ~T0 @X0 1 a ]
 [e = _nuevoclico -> / -> * _reg10bits -> _ciclo_t `i `d .100.0 `i ]
-"43
-[; ;PWM_LIB.c: 43:     CCPR1L = (nuevoclico&0b1111111100)>>2;
+"60
+[; ;PWM_LIB.c: 60:     CCPR1L = (nuevoclico & 0b1111111100) >> 2;
 [e = _CCPR1L -> >> & _nuevoclico -> 1020 `i -> 2 `i `uc ]
-"44
-[; ;PWM_LIB.c: 44:     CCP1CONbits.DC1B = nuevoclico&0b0000000011;
+"61
+[; ;PWM_LIB.c: 61:     CCP1CONbits.DC1B = nuevoclico & 0b0000000011;
 [e = . . _CCP1CONbits 0 1 -> & _nuevoclico -> 3 `i `uc ]
-"45
-[; ;PWM_LIB.c: 45:     return;
+"62
+[; ;PWM_LIB.c: 62:     return;
 [e $UE 375  ]
-"46
-[; ;PWM_LIB.c: 46: }
+"63
+[; ;PWM_LIB.c: 63: }
 [e :UE 375 ]
 }

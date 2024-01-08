@@ -5727,13 +5727,46 @@ unsigned char __t3rd16on(void);
 
 
 
+
+
+
 char aux[20] = " ";
 char pwm_flag = 0;
+char operationModeFlag = 0;
+char vista_firing_angle_flag = 0;
 char vista = 0;
 
 
+float kp = 0.0;
+float ki = 0.0;
+float kd = 0.0;
 
-int rpm = 0;
+float error_acumulado = 0.0;
+float error_anterior = 0.0;
+
+float up = 0;
+float ui = 0.0;
+float ui_ = 0.0;
+
+float ud = 0;
+float ut = 0;
+
+
+
+float cv;
+float cv1;
+float error;
+float error1;
+float error2;
+
+
+char inc_pressed = 0;
+char dec_pressed = 0;
+
+
+
+
+int PV_RPM;
 int setpoint_rpm = 0;
 
 
@@ -5746,11 +5779,9 @@ int setpoint_segundos = 0;
 char fin_ciclo = 0;
 
 
-int tiempo_total = 0;
-char pulsos_por_revolucion = 2;
+int uni = 0, dec = 0, cen = 0, mil = 0;
 
-
-char duty = 0;
+int duty = 0;
 # 3 "interrupts.c" 2
 
 # 1 "./interrupts.h" 1
@@ -5758,26 +5789,45 @@ char duty = 0;
 
 
 
-void INTERRUPTS_CONFIG();
+void INTERRUPTS_CONFIG(void);
 
 void __attribute__((picinterrupt(("")))) INTERRUPTS();
 # 4 "interrupts.c" 2
 
 # 1 "./funciones.h" 1
-# 11 "./funciones.h"
-void tmr0_init(void);
 
-void pid(float velocidad);
+
+
+
+void contador_on(void);
+void contador_off(void);
+void tmr0_init(void);
+void tmr0_on(void);
+void tmr0_off(void);
+
+void operationModeOn(void);
+void operationModeOff(void);
+
 
 void guardar_rpm(int dato);
 
 int leer_rpm(void);
 
-void calcular_rpm();
+void calcularRPM(void);
 
 
-void ccp1_config();
-void ccp1_init();
+
+void ccp1_config(void);
+void ccp1_on(void);
+void ccp1_off(void);
+
+
+void tmr2_init(void);
+void tmr2_on(void);
+void tmr2_off(void);
+void set_firing_angle(void);
+
+int pid(int velocidad);
 # 5 "interrupts.c" 2
 
 # 1 "./PWM_LIB.h" 1
@@ -5793,110 +5843,141 @@ int reg10bits;
 
 void PWM_Init(int f_trabajo , char pre_config);
 void PWM_Duty(char ciclo_t);
-void PWM_Start();
-void PWM_Stop();
+void PWM_Start(void);
+void PWM_Stop(void);
 # 6 "interrupts.c" 2
 
 # 1 "./EEPROM_LIB.h" 1
-# 11 "./EEPROM_LIB.h"
+
+
+
+
 void EEPROM_Guardar(int dir, char data);
 
 unsigned char EEPROM_Lectura(int dir);
 # 7 "interrupts.c" 2
 
 
-void INTERRUPTS_CONFIG(){
+int contador = 0;
+float factorDeConversion = 60 / 24;
 
-INTCONbits.GIE = 1;
-INTCONbits.PEIE = 1;
+void INTERRUPTS_CONFIG() {
 
-
-INTCONbits.INT0IF = 0;
-INTCONbits.INT0IE = 1;
-INTCON2bits.INTEDG0 = 1;
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
 
 
-INTCON3bits.INT1IF = 0;
-INTCON3bits.INT1IE = 1;
-INTCON2bits.INTEDG1 = 0;
+    INTCONbits.RBIE = 0;
+    INTCONbits.RBIF = 0;
 
 
-INTCON3bits.INT2IF = 0;
-INTCON3bits.INT2IE = 1;
-INTCON2bits.INTEDG2 = 0;
+    INTCONbits.INT0IF = 0;
+    INTCONbits.INT0IE = 0;
+    INTCON2bits.INTEDG0 = 1;
 
 
-PIR1bits.CCP1IF = 0;
-PIE1bits.CCP1IE = 1;
+    INTCON3bits.INT1IF = 0;
+    INTCON3bits.INT1IE = 1;
+    INTCON2bits.INTEDG1 = 0;
+
+
+    INTCON3bits.INT2IF = 0;
+    INTCON3bits.INT2IE = 1;
+    INTCON2bits.INTEDG2 = 0;
+
 }
 
 void __attribute__((picinterrupt(("")))) INTERRUPTS() {
 
+    if (INTCONbits.INT0IF && (operationModeFlag || pwm_flag)) {
 
-    if (INTCONbits.INT0IF) {
-
+        contador++;
         INTCONbits.INT0IF = 0;
     }
 
-    if (INTCON3bits.INT1IF) {
-        if (vista == 0) {
-            vista = 1;
-        } else if (vista == 1) {
-            vista = 0;
-        } else if (vista == 4 && pwm_flag == 1) {
-            PWM_Start();
-            PWM_Duty(duty);
-        }
-        INTCON3bits.INT1IF = 0;
-        _delay((unsigned long)((100)*(4000000L/4000.0)));
-    }
 
-    if (INTCON3bits.INT2IF) {
-        if (vista == 0) {
-            vista = 2;
-        } else if (vista == 2) {
-            guardar_rpm(setpoint_rpm);
-            vista = 3;
-        } else if (vista == 3) {
-            EEPROM_Guardar(3, setpoint_minutos);
-            EEPROM_Guardar(2, setpoint_horas);
-            vista = 4;
-        } else if (vista == 4) {
-            duty = 0;
-            PWM_Stop();
-            pwm_flag = 0;
-            vista = 0;
-        }
-        INTCON3bits.INT2IF = 0;
-        _delay((unsigned long)((100)*(4000000L/4000.0)));
-    }
 
-    if (TMR0IF == 1) {
+    if (TMR0IF == 1 && (operationModeFlag || pwm_flag)) {
+
+
         TMR0H = 0x0B;
         TMR0L = 0xDC;
 
 
-        segundos--;
-        if (horas == 0 && minutos == 0 && segundos == 0 && vista == 1) {
-            fin_ciclo = 1;
-        } else if (segundos < 0 && vista == 1) {
-            minutos--;
-            segundos = 59;
-            if (minutos < 0 && vista == 1) {
-                horas--;
-                minutos = 59;
+
+        PV_RPM = (int) (contador * factorDeConversion);
+        contador = 0;
 
 
+        if (vista == 1) {
+            segundos--;
 
+            if (segundos < 0) {
+                minutos--;
+                segundos = 59;
+
+                if (minutos < 0) {
+                    horas--;
+                    minutos = 59;
+                }
+            }
+
+
+            if (horas == 0 && minutos == 0 && segundos == 0) {
+                fin_ciclo = 1;
             }
         }
         TMR0IF = 0;
     }
-    if (PIR1bits.CCP1IF) {
-        tiempo_total = CCPR1H << 8 | CCPR1L;
-        calcular_rpm();
-        TMR1H = 0;
-        TMR1L = 0;
-        PIR1bits.CCP1IF = 0;
+
+
+    if (INTCON3bits.INT1IF) {
+
+        if (vista == 1) {
+            vista = 0;
+        } else if (vista == 0) {
+            if (setpoint_rpm > 0 && (setpoint_horas > 0 || setpoint_minutos > 0)) {
+                operationModeFlag = 1;
+            }
+            vista = 1;
+        }
+        INTCON3bits.INT1IF = 0;
+    }
+
+    if (INTCON3bits.INT2IF) {
+        _delay((unsigned long)((150)*(4000000L/4000.0)));
+        if (vista == 1) {
+            vista = 0;
+        } else if (vista == 0) {
+            vista = 2;
+        } else if (vista == 2) {
+            vista = 3;
+        } else if (vista == 3) {
+            pwm_flag = 1;
+            vista = 4;
+        } else if (vista == 4) {
+            vista = 5;
+        } else if (vista == 5) {
+            vista = 0;
+        }
+        INTCON3bits.INT2IF = 0;
+    }
+
+
+    if (INTCONbits.RBIF && (!PORTBbits.RB4)) {
+        _delay((unsigned long)((20)*(4000000L/4000.0)));
+        if (!PORTBbits.RB4) {
+            inc_pressed = 1;
+        }
+        INTCONbits.RBIF = 0;
+    }
+
+
+    if (INTCONbits.RBIF && (!PORTBbits.RB5)) {
+        _delay((unsigned long)((20)*(4000000L/4000.0)));
+        if (!PORTBbits.RB5) {
+            dec_pressed = 1;
+        }
+        INTCONbits.RBIF = 0;
     }
 }

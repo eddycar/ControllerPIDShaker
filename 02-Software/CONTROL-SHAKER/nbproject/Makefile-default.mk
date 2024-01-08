@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=funciones.c vistas.c main.c LIBRERIA_LCD.c config.c EEPROM_LIB.c PWM_LIB.c interrupts.c
+SOURCEFILES_QUOTED_IF_SPACED=interrupts.c funciones.c vistas.c main.c LIBRERIA_LCD.c config.c EEPROM_LIB.c PWM_LIB.c globals.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/funciones.p1 ${OBJECTDIR}/vistas.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/LIBRERIA_LCD.p1 ${OBJECTDIR}/config.p1 ${OBJECTDIR}/EEPROM_LIB.p1 ${OBJECTDIR}/PWM_LIB.p1 ${OBJECTDIR}/interrupts.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/funciones.p1.d ${OBJECTDIR}/vistas.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/LIBRERIA_LCD.p1.d ${OBJECTDIR}/config.p1.d ${OBJECTDIR}/EEPROM_LIB.p1.d ${OBJECTDIR}/PWM_LIB.p1.d ${OBJECTDIR}/interrupts.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/interrupts.p1 ${OBJECTDIR}/funciones.p1 ${OBJECTDIR}/vistas.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/LIBRERIA_LCD.p1 ${OBJECTDIR}/config.p1 ${OBJECTDIR}/EEPROM_LIB.p1 ${OBJECTDIR}/PWM_LIB.p1 ${OBJECTDIR}/globals.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/interrupts.p1.d ${OBJECTDIR}/funciones.p1.d ${OBJECTDIR}/vistas.p1.d ${OBJECTDIR}/main.p1.d ${OBJECTDIR}/LIBRERIA_LCD.p1.d ${OBJECTDIR}/config.p1.d ${OBJECTDIR}/EEPROM_LIB.p1.d ${OBJECTDIR}/PWM_LIB.p1.d ${OBJECTDIR}/globals.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/funciones.p1 ${OBJECTDIR}/vistas.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/LIBRERIA_LCD.p1 ${OBJECTDIR}/config.p1 ${OBJECTDIR}/EEPROM_LIB.p1 ${OBJECTDIR}/PWM_LIB.p1 ${OBJECTDIR}/interrupts.p1
+OBJECTFILES=${OBJECTDIR}/interrupts.p1 ${OBJECTDIR}/funciones.p1 ${OBJECTDIR}/vistas.p1 ${OBJECTDIR}/main.p1 ${OBJECTDIR}/LIBRERIA_LCD.p1 ${OBJECTDIR}/config.p1 ${OBJECTDIR}/EEPROM_LIB.p1 ${OBJECTDIR}/PWM_LIB.p1 ${OBJECTDIR}/globals.p1
 
 # Source Files
-SOURCEFILES=funciones.c vistas.c main.c LIBRERIA_LCD.c config.c EEPROM_LIB.c PWM_LIB.c interrupts.c
+SOURCEFILES=interrupts.c funciones.c vistas.c main.c LIBRERIA_LCD.c config.c EEPROM_LIB.c PWM_LIB.c globals.c
 
 
 
@@ -94,6 +94,14 @@ MP_PROCESSOR_OPTION=18F4550
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: compile
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/interrupts.p1: interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interrupts.p1.d 
+	@${RM} ${OBJECTDIR}/interrupts.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=pickit4   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/interrupts.p1 interrupts.c 
+	@-${MV} ${OBJECTDIR}/interrupts.d ${OBJECTDIR}/interrupts.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 ${OBJECTDIR}/funciones.p1: funciones.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/funciones.p1.d 
@@ -150,15 +158,23 @@ ${OBJECTDIR}/PWM_LIB.p1: PWM_LIB.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/PWM_LIB.d ${OBJECTDIR}/PWM_LIB.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/PWM_LIB.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/globals.p1: globals.c  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/globals.p1.d 
+	@${RM} ${OBJECTDIR}/globals.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=pickit4   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/globals.p1 globals.c 
+	@-${MV} ${OBJECTDIR}/globals.d ${OBJECTDIR}/globals.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/globals.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+else
 ${OBJECTDIR}/interrupts.p1: interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/interrupts.p1.d 
 	@${RM} ${OBJECTDIR}/interrupts.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c  -D__DEBUG=1  -mdebugger=pickit4   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/interrupts.p1 interrupts.c 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/interrupts.p1 interrupts.c 
 	@-${MV} ${OBJECTDIR}/interrupts.d ${OBJECTDIR}/interrupts.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-else
 ${OBJECTDIR}/funciones.p1: funciones.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/funciones.p1.d 
@@ -215,13 +231,13 @@ ${OBJECTDIR}/PWM_LIB.p1: PWM_LIB.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/PWM_LIB.d ${OBJECTDIR}/PWM_LIB.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/PWM_LIB.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
-${OBJECTDIR}/interrupts.p1: interrupts.c  nbproject/Makefile-${CND_CONF}.mk 
+${OBJECTDIR}/globals.p1: globals.c  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/interrupts.p1.d 
-	@${RM} ${OBJECTDIR}/interrupts.p1 
-	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/interrupts.p1 interrupts.c 
-	@-${MV} ${OBJECTDIR}/interrupts.d ${OBJECTDIR}/interrupts.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	@${RM} ${OBJECTDIR}/globals.p1.d 
+	@${RM} ${OBJECTDIR}/globals.p1 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -mcpu=$(MP_PROCESSOR_OPTION) -c   -mdfp="${DFP_DIR}/xc8"  -fno-short-double -fno-short-float -memi=wordwrite -O0 -fasmfile -maddrqual=ignore -xassembler-with-cpp -mwarn=-3 -Wa,-a -DXPRJ_default=$(CND_CONF)  -msummary=-psect,-class,+mem,-hex,-file  -ginhx32 -Wl,--data-init -mno-keep-startup -mno-download -mdefault-config-bits $(COMPARISON_BUILD)  -std=c99 -gdwarf-3 -mstack=compiled:auto:auto:auto     -o ${OBJECTDIR}/globals.p1 globals.c 
+	@-${MV} ${OBJECTDIR}/globals.d ${OBJECTDIR}/globals.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/globals.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

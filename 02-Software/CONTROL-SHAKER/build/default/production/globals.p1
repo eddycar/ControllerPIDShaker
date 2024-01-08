@@ -1,0 +1,196 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"8 ./globals.h
+[; ;./globals.h: 8: char aux[20] = " ";
+[v _aux `uc ~T0 @X0 -> 20 `i e ]
+[i _aux
+:U ..
+-> 32 `c
+-> 0 `c
+..
+]
+"9
+[; ;./globals.h: 9: char pwm_flag = 0;
+[v _pwm_flag `uc ~T0 @X0 1 e ]
+[i _pwm_flag
+-> -> 0 `i `uc
+]
+"10
+[; ;./globals.h: 10: char operationModeFlag = 0;
+[v _operationModeFlag `uc ~T0 @X0 1 e ]
+[i _operationModeFlag
+-> -> 0 `i `uc
+]
+"11
+[; ;./globals.h: 11: char vista_firing_angle_flag = 0;
+[v _vista_firing_angle_flag `uc ~T0 @X0 1 e ]
+[i _vista_firing_angle_flag
+-> -> 0 `i `uc
+]
+"12
+[; ;./globals.h: 12: char vista = 0;
+[v _vista `uc ~T0 @X0 1 e ]
+[i _vista
+-> -> 0 `i `uc
+]
+"15
+[; ;./globals.h: 15: float kp = 0.0;
+[v _kp `f ~T0 @X0 1 e ]
+[i _kp
+-> .0.0 `f
+]
+"16
+[; ;./globals.h: 16: float ki = 0.0;
+[v _ki `f ~T0 @X0 1 e ]
+[i _ki
+-> .0.0 `f
+]
+"17
+[; ;./globals.h: 17: float kd = 0.0;
+[v _kd `f ~T0 @X0 1 e ]
+[i _kd
+-> .0.0 `f
+]
+"19
+[; ;./globals.h: 19: float error_acumulado = 0.0;
+[v _error_acumulado `f ~T0 @X0 1 e ]
+[i _error_acumulado
+-> .0.0 `f
+]
+"20
+[; ;./globals.h: 20: float error_anterior = 0.0;
+[v _error_anterior `f ~T0 @X0 1 e ]
+[i _error_anterior
+-> .0.0 `f
+]
+"22
+[; ;./globals.h: 22: float up = 0;
+[v _up `f ~T0 @X0 1 e ]
+[i _up
+-> -> 0 `i `f
+]
+"23
+[; ;./globals.h: 23: float ui = 0.0;
+[v _ui `f ~T0 @X0 1 e ]
+[i _ui
+-> .0.0 `f
+]
+"24
+[; ;./globals.h: 24: float ui_ = 0.0;
+[v _ui_ `f ~T0 @X0 1 e ]
+[i _ui_
+-> .0.0 `f
+]
+"26
+[; ;./globals.h: 26: float ud = 0;
+[v _ud `f ~T0 @X0 1 e ]
+[i _ud
+-> -> 0 `i `f
+]
+"27
+[; ;./globals.h: 27: float ut = 0;
+[v _ut `f ~T0 @X0 1 e ]
+[i _ut
+-> -> 0 `i `f
+]
+"31
+[; ;./globals.h: 31: float cv;
+[v _cv `f ~T0 @X0 1 e ]
+"32
+[; ;./globals.h: 32: float cv1;
+[v _cv1 `f ~T0 @X0 1 e ]
+"33
+[; ;./globals.h: 33: float error;
+[v _error `f ~T0 @X0 1 e ]
+"34
+[; ;./globals.h: 34: float error1;
+[v _error1 `f ~T0 @X0 1 e ]
+"35
+[; ;./globals.h: 35: float error2;
+[v _error2 `f ~T0 @X0 1 e ]
+"38
+[; ;./globals.h: 38: char inc_pressed = 0;
+[v _inc_pressed `uc ~T0 @X0 1 e ]
+[i _inc_pressed
+-> -> 0 `i `uc
+]
+"39
+[; ;./globals.h: 39: char dec_pressed = 0;
+[v _dec_pressed `uc ~T0 @X0 1 e ]
+[i _dec_pressed
+-> -> 0 `i `uc
+]
+"44
+[; ;./globals.h: 44: int PV_RPM;
+[v _PV_RPM `i ~T0 @X0 1 e ]
+"45
+[; ;./globals.h: 45: int setpoint_rpm = 0;
+[v _setpoint_rpm `i ~T0 @X0 1 e ]
+[i _setpoint_rpm
+-> 0 `i
+]
+"48
+[; ;./globals.h: 48: int horas = 0;
+[v _horas `i ~T0 @X0 1 e ]
+[i _horas
+-> 0 `i
+]
+"49
+[; ;./globals.h: 49: int setpoint_horas = 0;
+[v _setpoint_horas `i ~T0 @X0 1 e ]
+[i _setpoint_horas
+-> 0 `i
+]
+"50
+[; ;./globals.h: 50: int minutos = 0;
+[v _minutos `i ~T0 @X0 1 e ]
+[i _minutos
+-> 0 `i
+]
+"51
+[; ;./globals.h: 51: int setpoint_minutos = 0;
+[v _setpoint_minutos `i ~T0 @X0 1 e ]
+[i _setpoint_minutos
+-> 0 `i
+]
+"52
+[; ;./globals.h: 52: int segundos = 0;
+[v _segundos `i ~T0 @X0 1 e ]
+[i _segundos
+-> 0 `i
+]
+"53
+[; ;./globals.h: 53: int setpoint_segundos = 0;
+[v _setpoint_segundos `i ~T0 @X0 1 e ]
+[i _setpoint_segundos
+-> 0 `i
+]
+"54
+[; ;./globals.h: 54: char fin_ciclo = 0;
+[v _fin_ciclo `uc ~T0 @X0 1 e ]
+[i _fin_ciclo
+-> -> 0 `i `uc
+]
+"57
+[; ;./globals.h: 57: int uni = 0, dec = 0, cen = 0, mil = 0;
+[v _uni `i ~T0 @X0 1 e ]
+[i _uni
+-> 0 `i
+]
+[v _dec `i ~T0 @X0 1 e ]
+[i _dec
+-> 0 `i
+]
+[v _cen `i ~T0 @X0 1 e ]
+[i _cen
+-> 0 `i
+]
+[v _mil `i ~T0 @X0 1 e ]
+[i _mil
+-> 0 `i
+]
+"59
+[; ;./globals.h: 59: int duty = 0;
+[v _duty `i ~T0 @X0 1 e ]
+[i _duty
+-> 0 `i
+]

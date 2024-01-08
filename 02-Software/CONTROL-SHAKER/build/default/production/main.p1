@@ -1,31 +1,15 @@
 Version 4.0 HI-TECH Software Intermediate Code
 [p mainexit ]
+"5 ./interrupts.h
+[; ;./interrupts.h: 5: void INTERRUPTS_CONFIG(void);
+[v _INTERRUPTS_CONFIG `(v ~T0 @X0 0 ef ]
 "6582 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 6582: extern volatile unsigned char ADCON1 __attribute__((address(0xFC1)));
 [v _ADCON1 `Vuc ~T0 @X0 0 e@4033 ]
-"8512
-[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 8512:     struct {
-[s S356 :7 `uc 1 :1 `uc 1 ]
-[n S356 . . NOT_RBPU ]
-"8516
-[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 8516:     struct {
-[s S357 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S357 . RBIP . TMR0IP . INTEDG2 INTEDG1 INTEDG0 nRBPU ]
-"8526
-[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 8526:     struct {
-[s S358 :2 `uc 1 :1 `uc 1 :4 `uc 1 :1 `uc 1 ]
-[n S358 . . T0IP . RBPU ]
-"8511
-[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 8511: typedef union {
-[u S355 `S356 1 `S357 1 `S358 1 ]
-[n S355 . . . . ]
-"8533
-[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 8533: extern volatile INTCON2bits_t INTCON2bits __attribute__((address(0xFF1)));
-[v _INTCON2bits `VS355 ~T0 @X0 0 e@4081 ]
-"5 ./interrupts.h
-[; ;./interrupts.h: 5: void INTERRUPTS_CONFIG();
-[v _INTERRUPTS_CONFIG `(v ~T0 @X0 0 e? ]
-"3859 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h
+"3626
+[; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 3626: extern volatile unsigned char TRISB __attribute__((address(0xF93)));
+[v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
+"3859
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 3859:     struct {
 [s S154 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S154 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
@@ -55,30 +39,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "3209
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 3209: extern volatile LATCbits_t LATCbits __attribute__((address(0xF8B)));
 [v _LATCbits `VS132 ~T0 @X0 0 e@3979 ]
-"22 ./funciones.h
-[; ;./funciones.h: 22: void ccp1_config();
-[v _ccp1_config `(v ~T0 @X0 0 e? ]
-"23
-[; ;./funciones.h: 23: void ccp1_init();
-[v _ccp1_init `(v ~T0 @X0 0 e? ]
-"43 ./LIBRERIA_LCD.h
-[; ;./LIBRERIA_LCD.h: 43: void LCD_Init(void);
-[v _LCD_Init `(v ~T0 @X0 0 ef ]
-"46
-[; ;./LIBRERIA_LCD.h: 46: void LCD_Cmd(unsigned char cmd);
-[v _LCD_Cmd `(v ~T0 @X0 0 ef1`uc ]
-"13 ./EEPROM_LIB.h
-[; ;./EEPROM_LIB.h: 13: unsigned char EEPROM_Lectura(int dir);
-[v _EEPROM_Lectura `(uc ~T0 @X0 0 ef1`i ]
-"17 ./funciones.h
-[; ;./funciones.h: 17: int leer_rpm(void);
-[v _leer_rpm `(i ~T0 @X0 0 ef ]
-"109 C:\Program Files\Microchip\xc8\v2.40\pic\include\c99\stdio.h
-[; ;C:\Program Files\Microchip\xc8\v2.40\pic\include\c99\stdio.h: 109: int sprintf(char *restrict, const char *restrict, ...);
-[v _sprintf `(i ~T0 @X0 0 e1v`*uc`*Cuc ]
-"50 ./LIBRERIA_LCD.h
-[; ;./LIBRERIA_LCD.h: 50: void LCD_Out(unsigned char row, unsigned char column, char *text);
-[v _LCD_Out `(v ~T0 @X0 0 ef3`uc`uc`*uc ]
+"11 ./PWM_LIB.h
+[; ;./PWM_LIB.h: 11: void PWM_Init(int f_trabajo , char pre_config);
+[v _PWM_Init `(v ~T0 @X0 0 ef2`i`uc ]
+"12 ./funciones.h
+[; ;./funciones.h: 12: void operationModeOff(void);
+[v _operationModeOff `(v ~T0 @X0 0 ef ]
+"4 ./vistas.h
+[; ;./vistas.h: 4: void vista_principal(void);
+[v _vista_principal `(v ~T0 @X0 0 ef ]
 "55 C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h
 [; ;C:/Program Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC18Fxxxx_DFP/1.3.36/xc8\pic\include\proc\pic18f4550.h: 55: __asm("SPPDATA equ 0F62h");
 [; <" SPPDATA equ 0F62h ;# ">
@@ -592,8 +561,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 "9 ./PWM_LIB.h
 [; ;./PWM_LIB.h: 9: int reg10bits;
 [v _reg10bits `i ~T0 @X0 1 e ]
-"5 ./globals.h
-[; ;./globals.h: 5: char aux[20] = " ";
+"8 ./globals.h
+[; ;./globals.h: 8: char aux[20] = " ";
 [v _aux `uc ~T0 @X0 -> 20 `i e ]
 [i _aux
 :U ..
@@ -601,318 +570,288 @@ Version 4.0 HI-TECH Software Intermediate Code
 -> 0 `c
 ..
 ]
-"6
-[; ;./globals.h: 6: char pwm_flag = 0;
+"9
+[; ;./globals.h: 9: char pwm_flag = 0;
 [v _pwm_flag `uc ~T0 @X0 1 e ]
 [i _pwm_flag
 -> -> 0 `i `uc
 ]
-"7
-[; ;./globals.h: 7: char vista = 0;
+"10
+[; ;./globals.h: 10: char operationModeFlag = 0;
+[v _operationModeFlag `uc ~T0 @X0 1 e ]
+[i _operationModeFlag
+-> -> 0 `i `uc
+]
+"11
+[; ;./globals.h: 11: char vista_firing_angle_flag = 0;
+[v _vista_firing_angle_flag `uc ~T0 @X0 1 e ]
+[i _vista_firing_angle_flag
+-> -> 0 `i `uc
+]
+"12
+[; ;./globals.h: 12: char vista = 0;
 [v _vista `uc ~T0 @X0 1 e ]
 [i _vista
 -> -> 0 `i `uc
 ]
-"11
-[; ;./globals.h: 11: int rpm = 0;
-[v _rpm `i ~T0 @X0 1 e ]
-[i _rpm
--> 0 `i
-]
-"12
-[; ;./globals.h: 12: int setpoint_rpm = 0;
-[v _setpoint_rpm `i ~T0 @X0 1 e ]
-[i _setpoint_rpm
--> 0 `i
-]
 "15
-[; ;./globals.h: 15: int horas = 0;
-[v _horas `i ~T0 @X0 1 e ]
-[i _horas
--> 0 `i
-]
-"16
-[; ;./globals.h: 16: int setpoint_horas = 0;
-[v _setpoint_horas `i ~T0 @X0 1 e ]
-[i _setpoint_horas
--> 0 `i
-]
-"17
-[; ;./globals.h: 17: int minutos = 0;
-[v _minutos `i ~T0 @X0 1 e ]
-[i _minutos
--> 0 `i
-]
-"18
-[; ;./globals.h: 18: int setpoint_minutos = 0;
-[v _setpoint_minutos `i ~T0 @X0 1 e ]
-[i _setpoint_minutos
--> 0 `i
-]
-"19
-[; ;./globals.h: 19: int segundos = 0;
-[v _segundos `i ~T0 @X0 1 e ]
-[i _segundos
--> 0 `i
-]
-"20
-[; ;./globals.h: 20: int setpoint_segundos = 0;
-[v _setpoint_segundos `i ~T0 @X0 1 e ]
-[i _setpoint_segundos
--> 0 `i
-]
-"21
-[; ;./globals.h: 21: char fin_ciclo = 0;
-[v _fin_ciclo `uc ~T0 @X0 1 e ]
-[i _fin_ciclo
--> -> 0 `i `uc
-]
-"24
-[; ;./globals.h: 24: int tiempo_total = 0;
-[v _tiempo_total `i ~T0 @X0 1 e ]
-[i _tiempo_total
--> 0 `i
-]
-"25
-[; ;./globals.h: 25: char pulsos_por_revolucion = 2;
-[v _pulsos_por_revolucion `uc ~T0 @X0 1 e ]
-[i _pulsos_por_revolucion
--> -> 2 `i `uc
-]
-"28
-[; ;./globals.h: 28: char duty = 0;
-[v _duty `uc ~T0 @X0 1 e ]
-[i _duty
--> -> 0 `i `uc
-]
-"13 main.c
-[; ;main.c: 13: int contador_cruce = 0;
-[v _contador_cruce `i ~T0 @X0 1 e ]
-[i _contador_cruce
--> 0 `i
-]
-"14
-[; ;main.c: 14: float salida;
-[v _salida `f ~T0 @X0 1 e ]
-"19
-[; ;main.c: 19: float kp = 80;
+[; ;./globals.h: 15: float kp = 0.0;
 [v _kp `f ~T0 @X0 1 e ]
 [i _kp
--> -> 80 `i `f
+-> .0.0 `f
 ]
-"20
-[; ;main.c: 20: float ki = 0;
+"16
+[; ;./globals.h: 16: float ki = 0.0;
 [v _ki `f ~T0 @X0 1 e ]
 [i _ki
--> -> 0 `i `f
+-> .0.0 `f
 ]
-"21
-[; ;main.c: 21: float kd = 0;
+"17
+[; ;./globals.h: 17: float kd = 0.0;
 [v _kd `f ~T0 @X0 1 e ]
 [i _kd
--> -> 0 `i `f
+-> .0.0 `f
 ]
-"23
-[; ;main.c: 23: float error_acumulado = 0;
+"19
+[; ;./globals.h: 19: float error_acumulado = 0.0;
 [v _error_acumulado `f ~T0 @X0 1 e ]
 [i _error_acumulado
--> -> 0 `i `f
+-> .0.0 `f
 ]
-"24
-[; ;main.c: 24: float error_anterior = 0.0;
+"20
+[; ;./globals.h: 20: float error_anterior = 0.0;
 [v _error_anterior `f ~T0 @X0 1 e ]
 [i _error_anterior
 -> .0.0 `f
 ]
-"26
-[; ;main.c: 26: float up = 0;
+"22
+[; ;./globals.h: 22: float up = 0;
 [v _up `f ~T0 @X0 1 e ]
 [i _up
 -> -> 0 `i `f
 ]
-"27
-[; ;main.c: 27: float ui = 0.0;
+"23
+[; ;./globals.h: 23: float ui = 0.0;
 [v _ui `f ~T0 @X0 1 e ]
 [i _ui
 -> .0.0 `f
 ]
-"28
-[; ;main.c: 28: float ui_ = 0.0;
+"24
+[; ;./globals.h: 24: float ui_ = 0.0;
 [v _ui_ `f ~T0 @X0 1 e ]
 [i _ui_
 -> .0.0 `f
 ]
-"30
-[; ;main.c: 30: float ud = 0;
+"26
+[; ;./globals.h: 26: float ud = 0;
 [v _ud `f ~T0 @X0 1 e ]
 [i _ud
 -> -> 0 `i `f
 ]
-"31
-[; ;main.c: 31: float ut = 0;
+"27
+[; ;./globals.h: 27: float ut = 0;
 [v _ut `f ~T0 @X0 1 e ]
 [i _ut
 -> -> 0 `i `f
 ]
+"31
+[; ;./globals.h: 31: float cv;
+[v _cv `f ~T0 @X0 1 e ]
+"32
+[; ;./globals.h: 32: float cv1;
+[v _cv1 `f ~T0 @X0 1 e ]
 "33
-[; ;main.c: 33: float set_point = 0;
-[v _set_point `f ~T0 @X0 1 e ]
-[i _set_point
--> -> 0 `i `f
+[; ;./globals.h: 33: float error;
+[v _error `f ~T0 @X0 1 e ]
+"34
+[; ;./globals.h: 34: float error1;
+[v _error1 `f ~T0 @X0 1 e ]
+"35
+[; ;./globals.h: 35: float error2;
+[v _error2 `f ~T0 @X0 1 e ]
+"38
+[; ;./globals.h: 38: char inc_pressed = 0;
+[v _inc_pressed `uc ~T0 @X0 1 e ]
+[i _inc_pressed
+-> -> 0 `i `uc
+]
+"39
+[; ;./globals.h: 39: char dec_pressed = 0;
+[v _dec_pressed `uc ~T0 @X0 1 e ]
+[i _dec_pressed
+-> -> 0 `i `uc
+]
+"44
+[; ;./globals.h: 44: int PV_RPM;
+[v _PV_RPM `i ~T0 @X0 1 e ]
+"45
+[; ;./globals.h: 45: int setpoint_rpm = 0;
+[v _setpoint_rpm `i ~T0 @X0 1 e ]
+[i _setpoint_rpm
+-> 0 `i
+]
+"48
+[; ;./globals.h: 48: int horas = 0;
+[v _horas `i ~T0 @X0 1 e ]
+[i _horas
+-> 0 `i
+]
+"49
+[; ;./globals.h: 49: int setpoint_horas = 0;
+[v _setpoint_horas `i ~T0 @X0 1 e ]
+[i _setpoint_horas
+-> 0 `i
+]
+"50
+[; ;./globals.h: 50: int minutos = 0;
+[v _minutos `i ~T0 @X0 1 e ]
+[i _minutos
+-> 0 `i
+]
+"51
+[; ;./globals.h: 51: int setpoint_minutos = 0;
+[v _setpoint_minutos `i ~T0 @X0 1 e ]
+[i _setpoint_minutos
+-> 0 `i
+]
+"52
+[; ;./globals.h: 52: int segundos = 0;
+[v _segundos `i ~T0 @X0 1 e ]
+[i _segundos
+-> 0 `i
+]
+"53
+[; ;./globals.h: 53: int setpoint_segundos = 0;
+[v _setpoint_segundos `i ~T0 @X0 1 e ]
+[i _setpoint_segundos
+-> 0 `i
+]
+"54
+[; ;./globals.h: 54: char fin_ciclo = 0;
+[v _fin_ciclo `uc ~T0 @X0 1 e ]
+[i _fin_ciclo
+-> -> 0 `i `uc
+]
+"57
+[; ;./globals.h: 57: int uni = 0, dec = 0, cen = 0, mil = 0;
+[v _uni `i ~T0 @X0 1 e ]
+[i _uni
+-> 0 `i
+]
+[v _dec `i ~T0 @X0 1 e ]
+[i _dec
+-> 0 `i
+]
+[v _cen `i ~T0 @X0 1 e ]
+[i _cen
+-> 0 `i
+]
+[v _mil `i ~T0 @X0 1 e ]
+[i _mil
+-> 0 `i
+]
+"59
+[; ;./globals.h: 59: int duty = 0;
+[v _duty `i ~T0 @X0 1 e ]
+[i _duty
+-> 0 `i
 ]
 [v $root$_main `(v ~T0 @X0 0 e ]
-"38
-[; ;main.c: 38: void main(void) {
+"14 main.c
+[; ;main.c: 14: void main(void) {
 [v _main `(v ~T0 @X0 1 ef ]
 {
 [e :U _main ]
 [f ]
-"39
-[; ;main.c: 39:     ADCON1 = 0x0F;
-[e = _ADCON1 -> -> 15 `i `uc ]
-"40
-[; ;main.c: 40:     INTCON2bits.RBPU = 1;
-[e = . . _INTCON2bits 2 3 -> -> 1 `i `uc ]
-"42
-[; ;main.c: 42:     INTERRUPTS_CONFIG();
+"16
+[; ;main.c: 16:     INTERRUPTS_CONFIG();
 [e ( _INTERRUPTS_CONFIG ..  ]
-"44
-[; ;main.c: 44:     TRISCbits.RC0 = 0;
+"17
+[; ;main.c: 17:     ADCON1 = 0x0F;
+[e = _ADCON1 -> -> 15 `i `uc ]
+"20
+[; ;main.c: 20:     TRISB = 0xff;
+[e = _TRISB -> -> 255 `i `uc ]
+"21
+[; ;main.c: 21:     TRISCbits.RC0 = 0;
 [e = . . _TRISCbits 1 0 -> -> 0 `i `uc ]
-"45
-[; ;main.c: 45:     LATCbits.LATC0 = 0;
+"22
+[; ;main.c: 22:     LATCbits.LATC0 = 0;
 [e = . . _LATCbits 0 0 -> -> 0 `i `uc ]
-"46
-[; ;main.c: 46:     TRISCbits.RC2 = 1;
-[e = . . _TRISCbits 1 2 -> -> 1 `i `uc ]
-"51
-[; ;main.c: 51:     ccp1_config();
-[e ( _ccp1_config ..  ]
-"52
-[; ;main.c: 52:     ccp1_init();
-[e ( _ccp1_init ..  ]
-"54
-[; ;main.c: 54:     LCD_Init();
-[e ( _LCD_Init ..  ]
-"55
-[; ;main.c: 55:     LCD_Cmd(12);
-[e ( _LCD_Cmd (1 -> -> 12 `i `uc ]
-"59
-[; ;main.c: 59:     setpoint_minutos = EEPROM_Lectura(3);
-[e = _setpoint_minutos -> ( _EEPROM_Lectura (1 -> 3 `i `i ]
-"60
-[; ;main.c: 60:     if (setpoint_minutos > 59) {
-[e $ ! > _setpoint_minutos -> 59 `i 370  ]
+"25
+[; ;main.c: 25:      PWM_Init(20000, 16);
+[e ( _PWM_Init (2 , -> 20000 `i -> -> 16 `i `uc ]
+"47
+[; ;main.c: 47:     while (1) {
+[e :U 371 ]
 {
-"61
-[; ;main.c: 61:         setpoint_minutos = 0;
-[e = _setpoint_minutos -> 0 `i ]
+"48
+[; ;main.c: 48:         if (vista == 0) {
+[e $ ! == -> _vista `i -> 0 `i 373  ]
+{
+"49
+[; ;main.c: 49:             operationModeFlag = 0;
+[e = _operationModeFlag -> -> 0 `i `uc ]
+"50
+[; ;main.c: 50:             operationModeOff();
+[e ( _operationModeOff ..  ]
+"51
+[; ;main.c: 51:             vista_principal();
+[e ( _vista_principal ..  ]
+"52
+[; ;main.c: 52:         } else if (vista == 1) {
+}
+[e $U 374  ]
+[e :U 373 ]
+[e $ ! == -> _vista `i -> 1 `i 375  ]
+{
+"54
+[; ;main.c: 54:         } else if (vista == 2) {
+}
+[e $U 376  ]
+[e :U 375 ]
+[e $ ! == -> _vista `i -> 2 `i 377  ]
+{
+"56
+[; ;main.c: 56:         } else if (vista == 3) {
+}
+[e $U 378  ]
+[e :U 377 ]
+[e $ ! == -> _vista `i -> 3 `i 379  ]
+{
+"60
+[; ;main.c: 60:         } else if (vista == 4) {
+}
+[e $U 380  ]
+[e :U 379 ]
+[e $ ! == -> _vista `i -> 4 `i 381  ]
+{
 "62
-[; ;main.c: 62:     }
+[; ;main.c: 62:         } else if (vista == 5) {
+}
+[e $U 382  ]
+[e :U 381 ]
+[e $ ! == -> _vista `i -> 5 `i 383  ]
+{
+"69
+[; ;main.c: 69:         }
+}
+[e :U 383 ]
+[e :U 382 ]
+[e :U 380 ]
+[e :U 378 ]
+[e :U 376 ]
+[e :U 374 ]
+"70
+[; ;main.c: 70:     }
 }
 [e :U 370 ]
-"63
-[; ;main.c: 63:     setpoint_horas = EEPROM_Lectura(2);
-[e = _setpoint_horas -> ( _EEPROM_Lectura (1 -> 2 `i `i ]
-"64
-[; ;main.c: 64:     if (setpoint_horas > 3) {
-[e $ ! > _setpoint_horas -> 3 `i 371  ]
-{
-"65
-[; ;main.c: 65:         setpoint_horas = 0;
-[e = _setpoint_horas -> 0 `i ]
-"66
-[; ;main.c: 66:     }
-}
-[e :U 371 ]
-"68
-[; ;main.c: 68:     setpoint_rpm = leer_rpm();
-[e = _setpoint_rpm ( _leer_rpm ..  ]
-"70
-[; ;main.c: 70:     horas = setpoint_horas;
-[e = _horas _setpoint_horas ]
-"71
-[; ;main.c: 71:     minutos = setpoint_minutos;
-[e = _minutos _setpoint_minutos ]
-"72
-[; ;main.c: 72:     segundos = setpoint_segundos;
-[e = _segundos _setpoint_segundos ]
-"74
-[; ;main.c: 74:     while (1) {
-[e :U 373 ]
-{
-"81
-[; ;main.c: 81:         sprintf(aux, "RPM -> %04d", rpm);
-[e ( _sprintf (1 , (. , &U _aux :s 1C _rpm ]
-"82
-[; ;main.c: 82:         LCD_Out(2, 1, aux);
-[e ( _LCD_Out (3 , , -> -> 2 `i `uc -> -> 1 `i `uc &U _aux ]
-"94
-[; ;main.c: 94:     }
-}
+[e $U 371  ]
 [e :U 372 ]
-[e $U 373  ]
-[e :U 374 ]
-"95
-[; ;main.c: 95:     return;
+"71
+[; ;main.c: 71:     return;
 [e $UE 369  ]
-"96
-[; ;main.c: 96: }
+"72
+[; ;main.c: 72: }
 [e :UE 369 ]
 }
-"98
-[; ;main.c: 98: void pid(float velocidad) {
-[v _pid `(v ~T0 @X0 1 ef1`f ]
-{
-[e :U _pid ]
-[v _velocidad `f ~T0 @X0 1 r1 ]
-[f ]
-"99
-[; ;main.c: 99:     const float max_x = 100;
-[v _max_x `Cf ~T0 @X0 1 a ]
-[e = _max_x -> -> 100 `i `f ]
-"100
-[; ;main.c: 100:     const float min_x = 0;
-[v _min_x `Cf ~T0 @X0 1 a ]
-[e = _min_x -> -> 0 `i `f ]
-"101
-[; ;main.c: 101:     const float t_muestreo = 1;
-[v _t_muestreo `Cf ~T0 @X0 1 a ]
-[e = _t_muestreo -> -> 1 `i `f ]
-"104
-[; ;main.c: 104:     error_acumulado = set_point - velocidad;
-[e = _error_acumulado - _set_point _velocidad ]
-"105
-[; ;main.c: 105:     up = kp*error_acumulado;
-[e = _up * _kp _error_acumulado ]
-"106
-[; ;main.c: 106:     ui = ui_ + (ki * t_muestreo * error_acumulado);
-[e = _ui + _ui_ * * _ki _t_muestreo _error_acumulado ]
-"107
-[; ;main.c: 107:     ud = kd * (error_acumulado - error_anterior) / t_muestreo;
-[e = _ud / * _kd - _error_acumulado _error_anterior _t_muestreo ]
-"108
-[; ;main.c: 108:     ut = up + ui + ud;
-[e = _ut + + _up _ui _ud ]
-"109
-[; ;main.c: 109:     if (ut > max_x) ut = max_x;
-[e $ ! > _ut _max_x 376  ]
-[e = _ut _max_x ]
-[e :U 376 ]
-"110
-[; ;main.c: 110:     if (ut < min_x) ut = min_x;
-[e $ ! < _ut _min_x 377  ]
-[e = _ut _min_x ]
-[e :U 377 ]
-"111
-[; ;main.c: 111:     ui_ = ui;
-[e = _ui_ _ui ]
-"112
-[; ;main.c: 112:     error_anterior = error_acumulado;
-[e = _error_anterior _error_acumulado ]
-"113
-[; ;main.c: 113: }
-[e :UE 375 ]
-}
-[p f _sprintf 8421508 ]
-[a 1C 82 80 77 32 45 62 32 37 48 52 100 0 ]
